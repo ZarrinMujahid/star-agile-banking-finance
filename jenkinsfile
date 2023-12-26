@@ -13,13 +13,13 @@ node(){
 	}
 
              stage('Build docker image') {
-           steps{
+          
              sh 'echo "Building the image"'
            //  sh "docker version"
             // sh "docker build -t star-agile-banking-finance/my-note-app:latest ."
              //sh "docker image list"
 	        }
-         }
+        
 
 
     /*    stage("push to docker Hub")
