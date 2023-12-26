@@ -24,7 +24,7 @@ node(){
           sh "docker run -d -p 8081:8081 star-agile-banking-finance/my-note-app:latest"
 	 }
 
-       stage("push to docker Hub")
+     /*  stage("push to docker Hub")
         {
         
         echo"Pushing the image to docker hub"
@@ -32,7 +32,7 @@ node(){
         sh "docker tag my-note-app ${env.dockerHubUser}/my-note-app:latest"
         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
         sh "docker push ${env.dockerHubUser}/my-note-app:latest"
-	}
+	} */
       
 //stage('Ansible Deployment'){
 
