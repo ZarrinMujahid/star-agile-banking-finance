@@ -13,7 +13,7 @@ node(){
 	}
 
              stage('Build docker image') {
-             sh 'chmod 777 /var/run/docker.sock'
+             sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
              sh "docker version"
              sh "docker build -t star-agile-banking-finance/my-note-app:latest ."
