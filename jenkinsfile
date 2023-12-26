@@ -16,7 +16,7 @@ node(){
 	stage('Build docker image') {
            steps{
              echo "Building the image"
-             sh 'docker build -t my-nte-app .'
+             sh 'docker build -t my-nte-app:latest .'
 	        }
          }
    /*    stage("push to docker Hub")
