@@ -16,7 +16,7 @@ node(){
            steps{
              echo "Building the image"
              sh "docker version"
-             sh "docker build -t ZarrinMujahid/my-note-app:latest ."
+             sh "docker build -t star-agile-banking-finance/my-note-app:latest ."
              sh "docker image list"
 	        }
          }
