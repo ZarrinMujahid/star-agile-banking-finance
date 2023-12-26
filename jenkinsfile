@@ -11,7 +11,18 @@ node(){
 
 		"""
 	}
-	stage('Build docker image') {
+
+       stage('Build Docker Image') {
+            steps {
+                script {
+                    def dockerImage = docker.build("my-note-app", "-f Dockerfile .")
+                }
+            }
+
+
+
+
+	/*stage('Build docker image') {
            steps{
              echo "Building the image"
              sh "docker build -t my-note-app:latest ."
@@ -19,7 +30,7 @@ node(){
          }
 
 
-   /*    stage("push to docker Hub")
+     stage("push to docker Hub")
         {
         steps{
         echo"Pushing the image to docker hub"
