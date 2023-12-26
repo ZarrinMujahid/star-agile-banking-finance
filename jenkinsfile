@@ -18,7 +18,7 @@ node(){
                     def dockerImage = docker.build("my-note-app", "-f Dockerfile .")
                 }
             }
-
+         }
 
 
 
