@@ -20,7 +20,9 @@ node(){
              sh "docker image list"
 	  }
         
-
+         stage("Run Docker Image"){
+          sh "docker run -d -p 8081:8081 my-note-app:latest"
+	 }
 
        stage("push to docker Hub")
         {
