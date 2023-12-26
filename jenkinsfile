@@ -14,7 +14,7 @@ node(){
 	stage('Build docker image') {
            steps{
              echo "Building the image"
-             sh 'docker build -t my-note-app:latest .'
+             sh "docker build -t my-note-app:latest ."
 	        }
          }
 
