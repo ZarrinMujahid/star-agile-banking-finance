@@ -38,8 +38,8 @@ node(){
             docker.withRegistry(' https://docs.docker.com/go/buildx/', DOCKER_REGISTRY_CREDENTIALS){
             withCredentials([string(credentialsId:'dock-password', variable:'dockerHubPassword')]) {
             sh "${dockerCMD} login -u zarrinmujahid -p ${dockerHubPassword}"
-            sh "${dockerCMD} push docker hub zarrinmujahid/new-img:latest"
-            
+           // sh "${dockerCMD} push docker hub zarrinmujahid/new-img:latest"
+            sh "${dockerCMD} docker push zarrinmujahid/new-img:latest"
              }
           }
         }
