@@ -30,6 +30,7 @@ node(){
 
              stage('Pushing it ot the DockerHub'){
             echo 'Pushing the docker image to DockerHub'
+            sh ' sudo chmod 777 /var/run/docker.sock'
             withCredentials([string(credentialsId: 'dock-password', variable: 'dockerHubPassword')]) {
             sh "${dockerCMD} login -u ZarrinMujahid -p ${dockerHubPassword}"
             sh "${dockerCMD} push ZarrinMujahid/insure-me:${tagName}"
