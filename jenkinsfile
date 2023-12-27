@@ -38,11 +38,11 @@ node(){
             docker.withRegistry(' https://docs.docker.com/go/buildx/', DOCKER_REGISTRY_CREDENTIALS){
             withCredentials([string(credentialsId:'dock-password', variable:'dockerHubPassword')]) {
             sh "${dockerCMD} login -u zarrinmujahid -p ${dockerHubPassword}"
-            sh "${dockerCMD} push docker hub ZarrinMujahid/new-img:latest"
+            sh "${dockerCMD} push docker hub zarrinmujahid/new-img:latest"
             
              }
-           
-        
+          }
+        }
            stage('Configure and Deploy to the test-server'){
            ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
            } 
