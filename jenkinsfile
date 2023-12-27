@@ -19,9 +19,15 @@ node(){
 
 		"""
 	} 
+
             stage('Containerize the application'){
-            echo 'Creating Docker image'
-            sh "${dockerCMD} build -t ZarrinMujahid/new-img:${tagName} ."
+            // Ensure Docker is available in the PATH
+                    def dockerTool = tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
+                    env.PATH = "${dockerTool}/bin:${env.PATH}"
+
+                    // Your Docker commands go here
+                    sh 'docker --version'
+                    sh 'docker build -t my-image .'
             }
 
           /*   stage('Build docker image') {
