@@ -1,4 +1,12 @@
 node(){
+          def dockerCMD
+          def tagName
+    
+    stage('prepare enviroment'){
+        echo 'initialize all the variables'
+        dockerCMD = "${docker}/bin/docker"
+        tagName="3.0"
+    }
 
 	stage('Code Checkout'){
 		checkout changelog: false, poll: false, scm: scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubcredd', url: 'https://github.com/ZarrinMujahid/star-agile-banking-finance']])
@@ -23,11 +31,11 @@ node(){
              stage('Pushing it ot the DockerHub'){
         echo 'Pushing the docker image to DockerHub'
         withCredentials([string(credentialsId: 'dock-password', variable: 'dockerHubPassword')]) {
-        sh "${dockerCMD} login -u shubhamkushwah123 -p ${dockerHubPassword}"
+        sh "${dockerCMD} login -u zarrin.1985 -p ${dockerHubPassword}"
         sh "${dockerCMD} push shubhamkushwah123/insure-me:${tagName}"
             
         }
-            
+        }    
          stage("Run Docker Image"){
           sh "docker run -d -p 8081:8081 star-agile-banking-finance/my-note-app:latest"
 	 }
