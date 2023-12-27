@@ -23,7 +23,7 @@ node(){
            //  sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
              sh "docker version"
-             sh "docker build -t star-agile-banking-finance/new-img:latest ."
+             sh "docker build -t ZarrinMujahid/new-img:latest ."
              sh "docker image list"
 	     } 
 
