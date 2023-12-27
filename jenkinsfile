@@ -27,7 +27,7 @@ node(){
              sh "docker image list"
 	     } 
 
-          /*   stage('Pushing it ot the DockerHub'){
+          /* stage('Pushing it ot the DockerHub'){
             echo 'Pushing the docker image to DockerHub'
             //sh ' sudo chmod 777 /var/run/docker.sock'
             withCredentials([string(credentialsId: 'dock-password', variable: 'dockerHubPassword')]) {
