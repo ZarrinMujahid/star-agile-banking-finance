@@ -26,18 +26,21 @@ node(){
              sh "docker version"
              sh "docker build -t star-agile-banking-finance/my-note-app:latest ."
              sh "docker image list"
-	  }
+	     }
 
              stage('Pushing it ot the DockerHub'){
-        echo 'Pushing the docker image to DockerHub'
-        withCredentials([string(credentialsId: 'dock-password', variable: 'dockerHubPassword')]) {
-        sh "${dockerCMD} login -u ZarrinMujahid -p ${dockerHubPassword}"
-        sh "${dockerCMD} push ZarrinMujahid/insure-me:${tagName}"
+            echo 'Pushing the docker image to DockerHub'
+            withCredentials([string(credentialsId: 'dock-password', variable: 'dockerHubPassword')]) {
+            sh "${dockerCMD} login -u ZarrinMujahid -p ${dockerHubPassword}"
+            sh "${dockerCMD} push ZarrinMujahid/insure-me:${tagName}"
             
-        }
+             }
         }    
-         stage("Run Docker Image"){
-          sh "docker run -d -p 8081:8081 star-agile-banking-finance/my-note-app:latest"
-	 }
-
+        
+       /*    stage('Configure and Deploy to the test-server'){
+           ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
+           } */
+           stage("Run Docker Image"){
+           sh "docker run -d -p 8081:8081 star-agile-banking-finance/my-note-app:latest"
+	   }
    	}
