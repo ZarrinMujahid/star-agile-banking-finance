@@ -20,9 +20,13 @@ node(){
              sh "docker image list"
 	  }
 
-            stage('push image on docker hub'){
-
-	    }
+             stage('Pushing it ot the DockerHub'){
+        echo 'Pushing the docker image to DockerHub'
+        withCredentials([string(credentialsId: 'dock-password', variable: 'dockerHubPassword')]) {
+        sh "${dockerCMD} login -u shubhamkushwah123 -p ${dockerHubPassword}"
+        sh "${dockerCMD} push shubhamkushwah123/insure-me:${tagName}"
+            
+        }
             
          stage("Run Docker Image"){
           sh "docker run -d -p 8081:8081 star-agile-banking-finance/my-note-app:latest"
