@@ -19,26 +19,15 @@ node(){
 
 		"""
 	} 
-
-            stage('Containerize the application'){
-            // Ensure Docker is available in the PATH
-                    def dockerTool = tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
-                    env.PATH = "${dockerTool}/bin:${env.PATH}"
-
-                    // Your Docker commands go here
-                    sh 'docker --version'
-                    sh 'docker build -t my-image .'
-            }
-
-          /*   stage('Build docker image') {
+             stage('Build docker image') {
              sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
              sh "docker version"
              sh "docker build -t star-agile-banking-finance/new-img:latest ."
              sh "docker image list"
-	     } */
+	     } 
 
-             stage('Pushing it ot the DockerHub'){
+          /*   stage('Pushing it ot the DockerHub'){
             echo 'Pushing the docker image to DockerHub'
             //sh ' sudo chmod 777 /var/run/docker.sock'
             withCredentials([string(credentialsId: 'dock-password', variable: 'dockerHubPassword')]) {
@@ -48,7 +37,7 @@ node(){
              }
         }    
         
-       /*    stage('Configure and Deploy to the test-server'){
+           stage('Configure and Deploy to the test-server'){
            ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
            } */
            stage("Run Docker Image"){
