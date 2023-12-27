@@ -21,14 +21,14 @@ node(){
 	} 
             stage('Containerize the application'){
             echo 'Creating Docker image'
-            sh "${dockerCMD} build -t shubhamkushwah123/insure-me:${tagName} ."
+            sh "${dockerCMD} build -t ZarrinMujahid/new-img:${tagName} ."
             }
 
           /*   stage('Build docker image') {
              sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
              sh "docker version"
-             sh "docker build -t star-agile-banking-finance/my-note-app:latest ."
+             sh "docker build -t star-agile-banking-finance/new-img:latest ."
              sh "docker image list"
 	     } */
 
