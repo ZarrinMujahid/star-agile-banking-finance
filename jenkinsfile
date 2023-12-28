@@ -20,14 +20,14 @@ node(){
 		"""
 	} 
              stage('Build docker image') {
-           //  sh ' sudo chmod 777 /var/run/docker.sock'
+            sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
              sh "docker version"
              sh "docker build -t star-agile-banking-finance/new-img:latest ."
              sh "docker image list"
 	     } 
 
-          stage('Pushing it ot the DockerHub'){
+         /* stage('Pushing it ot the DockerHub'){
             echo 'Pushing the docker image to DockerHub'
               def dockerCMD
               def tagName
@@ -42,7 +42,7 @@ node(){
             sh "${dockerCMD} docker push zarrinmujahid/new-img:latest"
              }
           }
-        }
+        } */
            stage('Configure and Deploy to the test-server'){
            ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
            } 
