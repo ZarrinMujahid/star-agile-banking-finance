@@ -26,8 +26,10 @@ node(){
              sh "docker build -t star-agile-banking-finance/new-img:latest ."
              sh "docker image list"
 	     } 
-
-         /* stage('Pushing it ot the DockerHub'){
+              stage('Configure and Deploy to the test-server'){
+           ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
+           } 
+         /* stage('Pushing it to the DockerHub'){
             echo 'Pushing the docker image to DockerHub'
               def dockerCMD
               def tagName
