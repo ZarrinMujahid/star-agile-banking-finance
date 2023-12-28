@@ -46,7 +46,7 @@ node(){
           }
         } 
            stage('Configure and Deploy to the test-server'){
-           ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml --become'
+           ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
            } */
            stage("Run Docker Image"){
            sh "docker run -d -p 8081:8081 star-agile-banking-finance/my-note-app:latest"
