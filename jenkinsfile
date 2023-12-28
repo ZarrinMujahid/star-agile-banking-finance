@@ -15,9 +15,9 @@ node(){
 		"""
 	} 
       
-           /*   stage('Image Prune'){
+             stage('Image Prune'){
                sh "docker image prune -f"
-	      }*/
+	      }
              stage('Build docker image') {
           //  sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
