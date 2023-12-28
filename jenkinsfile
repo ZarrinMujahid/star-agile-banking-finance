@@ -1,5 +1,5 @@
-def containerName="new-img"
-def tag ="latest"
+//def containerName="new-img"
+ def tag ="latest"
  def dockerHubUser="zarrinmujahid"
 
 node(){
@@ -22,8 +22,8 @@ node(){
           // sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
              sh "docker version"
-          //  sh "docker build -t star-agile-banking-finance/new-img:latest ."
-              sh "docker build -t $containerName:$tag --pull --no -cache ."
+             sh "docker build -t new-img:latest ."
+           //   sh "docker build -t $containerName:$tag --pull --no -cache ."
              sh "docker image list"
 	     } 
            
