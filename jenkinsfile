@@ -43,7 +43,7 @@ node(){
             sh "docker pushb$dockerUser/$star-agile-banking-finance/new-img:$tag"
             echo "Image Puch complete"
              }
-        
+        }
            stage('Configure and Deploy to the test-server'){
            ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
            } 
