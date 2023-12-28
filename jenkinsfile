@@ -1,47 +1,38 @@
-//def containerName="new-img"
- def tag ="latest"
- def dockerHubUser="zarrinmujahid"
+def containerName="health"
+def tag="latest"
+def dockerHubUser="zarrinmujahid"
+def gitURL="https://github.com/ZarrinMujahid/star-agile-banking-finance "
 
-node(){
-    	stage('Code Checkout'){
-	checkout changelog: false, poll: false, scm: scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubcredd', url: 'https://github.com/ZarrinMujahid/star-agile-banking-finance']])
-	}
-	stage('Build Automation'){
-		sh """
-			ls -lart
-			mvn clean install
-			ls -lart target
+node {
 
-		"""
-	} 
-      
-             stage('Image Prune'){
-             sh "docker image prune -f"
-	      }
-             stage('Build docker image') {
-          // sh ' sudo chmod 777 /var/run/docker.sock'
-             sh 'echo "Building the image"'
-             sh "docker version"
-             sh "docker build -t new-img:latest ."
-           //   sh "docker build -t $containerName:$tag --pull --no -cache ."
-             sh "docker image list"
-	     } 
-           
-             
-          stage('Pushing it to the DockerHub'){
-            echo 'Pushing the docker image to DockerHub'
-                       
-            withCredentials([usernamePassword(credentialsId:'dockerHubAccount', usernameVariable:'dockerUser',passwordVariable:'dockerPassword')]) {
+    stage('Checkout') {
+        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: gitURL]]]
+    }
+
+    stage('Build'){
+        sh "mvn clean install"
+    }
+
+    stage("Image Prune"){
+         sh "docker image prune -f"
+    }
+
+    stage('Image Build'){
+        sh "docker build -t $containerName:$tag --pull --no-cache ."
+        echo "Image build complete"
+    }
+
+    stage('Push to Docker Registry'){
+        withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'dockerUser', passwordVariable: 'dockerPassword')]) {
             sh "docker login -u $dockerUser -p $dockerPassword"
-            sh "docker tag new-img:tag $dockerUser/new-img:$tag"
-            sh "docker push $dockerUser/new-img:$tag"
-            echo "Image Push complete"
-             }
+            sh "docker tag $containerName:$tag $dockerUser/$containerName:$tag"
+            sh "docker push $dockerUser/$containerName:$tag"
+            echo "Image push complete"
         }
-           stage('Configure and Deploy to the test-server'){
-           ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
-           } 
-           stage("Run Docker Image"){
-           sh "docker run -d -p 8081:8081 star-agile-banking-finance/new-img:latest"
-	   }
-   	}
+    }
+	
+	
+	stage("Ansible Deploy"){
+        ansiblePlaybook inventory: 'hosts', playbook: 'ansible-playbook.yml'
+    }
+}
