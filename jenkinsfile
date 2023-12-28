@@ -16,10 +16,10 @@ node(){
 	} 
       
              stage('Image Prune'){
-               sh "docker image prune -f"
+             sh "docker image prune -f"
 	      }
              stage('Build docker image') {
-          //  sh ' sudo chmod 777 /var/run/docker.sock'
+          // sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
              sh "docker version"
              sh "docker build -t star-agile-banking-finance/new-img:latest ."
@@ -32,8 +32,8 @@ node(){
                        
             withCredentials([usernamePassword(credentialsId:'dockerHubAccount', usernameVariable:'dockerUser',passwordVariable:'dockerPassword')]) {
             sh "docker login -u $dockerUser -p $dockerPassword"
-            sh "docker tag $star-agile-banking-finance/new-img:$tag $dockerUser/$star-agile-banking-finance/new-img:$tag"
-            sh "docker push $dockerUser /$star-agile-banking-finance/new-img:$tag"
+            sh "docker tag $ star-agile-banking-finance/new-img:$tag $dockerUser/$star-agile-banking-finance/new-img:$tag"
+            sh "docker push $ dockerUser / $ star-agile-banking-finance/new-img:$tag"
             echo "Image Push complete"
              }
         }
