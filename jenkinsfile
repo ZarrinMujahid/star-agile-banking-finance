@@ -1,4 +1,4 @@
-
+def containerName="Docker-img"
 def tag ="latest"
  def dockerHubUser="zarrinmujahid"
 
@@ -22,7 +22,8 @@ node(){
           // sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
              sh "docker version"
-             sh "docker build -t star-agile-banking-finance/new-img:latest ."
+          //  sh "docker build -t star-agile-banking-finance/new-img:latest ."
+              sh "docker build -t $containerName:$tag --pull --no -cache ."
              sh "docker image list"
 	     } 
            
@@ -32,8 +33,8 @@ node(){
                        
             withCredentials([usernamePassword(credentialsId:'dockerHubAccount', usernameVariable:'dockerUser',passwordVariable:'dockerPassword')]) {
             sh "docker login -u $dockerUser -p $dockerPassword"
-            sh "docker tag $star-agile-banking-finance/new-img:$tag $dockerUser/$star-agile-banking-finance/new-img:$tag"
-            sh "docker push $dockerUser/$star-agile-banking-finance/new-img:$tag"
+            sh "docker tag $containerName:$tag $dockerUser/$containerName:$tag"
+            sh "docker push $dockerUser/$containerName:$tag"
             echo "Image Push complete"
              }
         }
