@@ -19,6 +19,9 @@ node(){
 
 		"""
 	} 
+              stage('Image Prune'){
+               sh "docker image prune -f"
+	      }
              stage('Build docker image') {
           //  sh ' sudo chmod 777 /var/run/docker.sock'
              sh 'echo "Building the image"'
@@ -26,25 +29,20 @@ node(){
              sh "docker build -t star-agile-banking-finance/new-img:latest ."
              sh "docker image list"
 	     } 
-              stage('Configure and Deploy to the test-server'){
-           ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
-           } 
-         /* stage('Pushing it to the DockerHub'){
+           
+             
+          stage('Pushing it to the DockerHub'){
             echo 'Pushing the docker image to DockerHub'
-              def dockerCMD
-              def tagName
-               DOCKER_REGISTRY_CREDENTIALS = credentials('dock-password')
-               dockerCMD = "${docker}/bin/docker"
-               tagName="3.0"
-            //sh ' sudo chmod 777 /var/run/docker.sock'
-            docker.withRegistry(' https://docs.docker.com/go/buildx/', DOCKER_REGISTRY_CREDENTIALS){
-            withCredentials([string(credentialsId:'dock-password', variable:'dockerHubPassword')]) {
-            sh "${dockerCMD} login -u zarrinmujahid -p ${dockerHubPassword}"
-           // sh "${dockerCMD} push docker hub zarrinmujahid/new-img:latest"
-            sh "${dockerCMD} docker push zarrinmujahid/new-img:latest"
+              def tag ="latest"
+              def dockerHubUser="zarrinmujahid"
+             
+            withCredentials([usernamePassword(credentialsId:'dockerHubAccount', usernameVariable:'dockerUser',passwordVariable:'dockerPassword')]) {
+            sh "docker login -u $dockerUser -p $dockerPassword"
+            sh "docker tag $star-agile-banking-finance/new-img:$tag $dockerUser/$star-agile-banking-finance/new-img:$tag"
+            sh "docker pushb$dockerUser/$star-agile-banking-finance/new-img:$tag"
+            echo "Image Puch complete"
              }
-          }
-        } 
+        
            stage('Configure and Deploy to the test-server'){
            ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml'
            } */
