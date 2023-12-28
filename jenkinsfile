@@ -1,4 +1,4 @@
-def containerName="star-agile-banking-finance"
+def containerName="new-img"
 def tag ="latest"
  def dockerHubUser="zarrinmujahid"
 
