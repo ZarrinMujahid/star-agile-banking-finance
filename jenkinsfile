@@ -1,4 +1,4 @@
-def containerName="Docker-img"
+def containerName="docker-img"
 def tag ="latest"
  def dockerHubUser="zarrinmujahid"
 
