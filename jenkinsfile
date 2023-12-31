@@ -32,9 +32,9 @@ node {
     }
 	/*stage("Run docker image"){
          sh "docker run -d -p 8081:8081 $containerName:$tag"
-	}*/
+	}
 	
 	stage("Ansible Deploy"){
         ansiblePlaybook inventory:'hosts', playbook:'ansible-playbook.yml'
-    }
+    }*/
 }
